@@ -11,10 +11,12 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const frontendUrl = process.env.FRONTEND_URL;
+
 // CORS configuration - MUST be before routes
 app.use(cors({
-    origin: frontendUrl, // Vite dev server
+    origin: import.meta.env.DEV
+      ? VITE_SERVER_DEVELOPMENT_URL
+      :VITE_SERVER_PRODUCTION_URL ,
     credentials: true // Allow cookies
 }));
 
@@ -40,5 +42,4 @@ app.use("/api/products", productRoutes);
 app.listen(PORT, () => {
     console.log('Server is running on port 3000');
     connectDB();
-
 });
