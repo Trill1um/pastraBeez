@@ -11,7 +11,7 @@ const generateToken = (userId) => {
 const storeRefreshToken = async (userId, refreshToken) => {
     try {
         // Store the refresh token in Redis or your preferred storage
-        await client.set(`refreshToken:${userId}`, refreshToken, 'EX', 60 * 60 * 24 * 7); // 7 days expiration
+        await client.set(`refreshToken:${userId}`, refreshToken, 'EX', 60 * 60 * 24 * 7);
     } catch (error) {
         console.error("Error storing refresh token:", error);
     }
@@ -20,15 +20,15 @@ const storeRefreshToken = async (userId, refreshToken) => {
 const setCookies = (res, accessToken, refreshToken) => {
     res.cookie('accessToken', accessToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+        secure: process.env.NODE_ENV === 'production',
         sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Strict'
-        maxAge: 15 * 60 * 1000 // 15 minutes
+        maxAge: 15 * 60 * 1000
     });
     res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+        secure: process.env.NODE_ENV === 'production', 
         sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Strict'
-        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+        maxAge: 7 * 24 * 60 * 60 * 1000
     });
 }
 
@@ -185,7 +185,7 @@ export const refreshToken = async (req, res) => {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Strict'
-          maxAge: 15 * 60 * 1000 // 15 minutes
+          maxAge: 15 * 60 * 1000
         });
         console.log("status Check 4")
 
@@ -206,3 +206,4 @@ export const getProfile = async (req, res) => {
     }
 
 }
+
