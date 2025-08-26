@@ -1,5 +1,3 @@
-import { Redis } from '@upstash/redis'
-const redis = new Redis({
-  url: 'https://valued-cicada-52830.upstash.io',
-  token: 'Ac5eAAIncDFkMDczODIyZjNmNWM0MGQyYTdiN2Q1OTVjOTllMWIzYnAxNTI4MzA',
-})
+import Redis from "ioredis"
+
+export const client = new Redis("rediss://default:Ac5eAAIncDFkMDczODIyZjNmNWM0MGQyYTdiN2Q1OTVjOTllMWIzYnAxNTI4MzA@valued-cicada-52830.upstash.io:6379");
