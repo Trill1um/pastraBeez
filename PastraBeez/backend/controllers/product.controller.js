@@ -35,6 +35,7 @@ export const getAllProducts = async (req, res) => {
 };
 
 export const createMyProduct = async (req, res) => {
+  console.log("creating product: ", req.body);
   try {
     const {
       name,
@@ -52,8 +53,12 @@ export const createMyProduct = async (req, res) => {
     if (!name || !description || !price || !category) {
       return res.status(400).json({ message: "All fields are required" });
     }
-
+    console.log("passed validation 2");
     let cloudinaryResponses = [];
+    
+    additionalInfo.forEach(element => {
+      delete element._id;
+    });
 
     // Handle image upload
     try {
@@ -65,7 +70,8 @@ export const createMyProduct = async (req, res) => {
       console.error("Error uploading images to Cloudinary:", error);
       return res.status(500).json({ message: "Image upload failed" });
     }
-
+    console.log("passed validation 2");
+    
     // Create new product
     const product = await Product.create({
       sellerId: req.user.id,
@@ -76,12 +82,13 @@ export const createMyProduct = async (req, res) => {
       isLimited,
       inStock,
       images:
-        cloudinaryResponses
-          ?.filter((response) => response.secure_url)
+      cloudinaryResponses
+      ?.filter((response) => response.secure_url)
           .map((response) => response.secure_url) || [],
       additionalInfo,
     });
-
+    
+    console.log("passed validation 3");
     res.status(201).json({ product, message: "Product created successfully" });
     toast.success("Product created successfully!");
   } catch (error) {
