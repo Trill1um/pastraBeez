@@ -187,7 +187,7 @@ export const refreshToken = async (req, res) => {
         res.cookie('accessToken', accessToken, {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
-          sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Strict'
+          sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Strict',
           maxAge: 15 * 60 * 1000
         });
         console.log("status Check 4")
@@ -209,5 +209,6 @@ export const getProfile = async (req, res) => {
     }
 
 }
+
 
 
