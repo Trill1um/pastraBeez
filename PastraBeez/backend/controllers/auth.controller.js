@@ -21,13 +21,13 @@ const setCookies = (res, accessToken, refreshToken) => {
     res.cookie('accessToken', accessToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-        sameSite: 'Strict', // Prevent CSRF attacks
+        sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Strict'
         maxAge: 15 * 60 * 1000 // 15 minutes
     });
     res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-        sameSite: 'Strict', // Prevent CSRF attacks
+        sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Strict'
         maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
 }
@@ -184,7 +184,7 @@ export const refreshToken = async (req, res) => {
         res.cookie('accessToken', accessToken, {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
-          sameSite: 'Strict', 
+          sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Strict'
           maxAge: 15 * 60 * 1000 // 15 minutes
         });
         console.log("status Check 4")
@@ -204,4 +204,5 @@ export const getProfile = async (req, res) => {
         console.error("Error getting profile:", error);
         res.status(500).json({ message: "Internal server error" });
     }
+
 }
