@@ -1,7 +1,5 @@
-import Redis from "ioredis"
-import dotenv from "dotenv";
-
-dotenv.config();
-
-export const client = new Redis(process.env.REDIS_URL);
-await client.set('foo', 'bar');
+import { Redis } from '@upstash/redis'
+const redis = new Redis({
+  url: 'https://valued-cicada-52830.upstash.io',
+  token: 'Ac5eAAIncDFkMDczODIyZjNmNWM0MGQyYTdiN2Q1OTVjOTllMWIzYnAxNTI4MzA',
+})
