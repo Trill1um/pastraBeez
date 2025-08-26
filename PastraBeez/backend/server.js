@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 // CORS configuration - MUST be before routes
 app.use(cors({
-    origin: VITE_SERVER_PRODUCTION_URL || VITE_SERVER_DEVELOPMENT_URL ,
+    origin:  process.env.VITE_SERVER_PRODUCTION_URL ||  process.env.VITE_SERVER_DEVELOPMENT_URL ,
     credentials: true // Allow cookies
 }));
 
@@ -41,4 +41,5 @@ app.listen(PORT, () => {
     console.log('Server is running on port 3000');
     connectDB();
 });
+
 
